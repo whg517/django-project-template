@@ -40,7 +40,7 @@ Latest Python 3.6 runtime environment.
 你应该把下面 `project_name` 换成你自己的项目名称
 
 ```bash
-$ django-admin.py startproject \
+$ django-admin startproject \
   --template=https://github.com/kiven517/django-project-template/archive/master.zip \
   --name=Procfile \
   project_name
