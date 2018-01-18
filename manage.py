@@ -15,12 +15,14 @@ def get_env_variable(var_name):
 
 if __name__ == "__main__":
     DJANGO_EXECUTION_ENVIRONMENT = get_env_variable('DJANGO_EXECUTION_ENVIRONMENT')
-    if DJANGO_EXECUTION_ENVIRONMENT == 'LOCAL':
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.local")
     if DJANGO_EXECUTION_ENVIRONMENT == "TEST":
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.test")
-    if DJANGO_EXECUTION_ENVIRONMENT == 'PRODUCTION':
+    elif DJANGO_EXECUTION_ENVIRONMENT == 'PRODUCTION':
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.production")
+    elif DJANGO_EXECUTION_ENVIRONMENT == 'LOCAL':
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.local")
+    else:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings.local")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
