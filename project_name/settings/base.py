@@ -17,6 +17,7 @@ from manage import get_env_variable
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 DJANGO_SECRET_KEY = get_env_variable('DJANGO_SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production

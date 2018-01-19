@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 import os
 
 # the function that we added to manage.py to humanize potential configuration errors
-from manage import get_env_variable
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -137,4 +136,3 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
