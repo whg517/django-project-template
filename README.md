@@ -87,81 +87,6 @@ $ python manage.py runserver --settings=mysite.settings.local
 
 如果你对virtualenv有深入的了解的话, 也可以在postactivate脚本中设置 DJANGO_SETTINGS_MODULE 和 PYTHONPATH.
 
-###  将关键信息和设置文件分离
-
-> 注意： 默认使用配置文件获取 key
-
-将SECTET_KEY, AWS key文件, API key文件等关键信息放入设置文件中也是违反基本原则的. 因为:
-
-- 配置环境不同时关键信息会改变, 程序却不会.
-- 关键信息不是程序.
-- 关键信息应当是隐蔽的, 如果储存在了版本管理系统中, 则任何有权访问该版本库的用户都能获知这些关键信息.
-- 许多PAAS服务无法为每台服务器编辑设置文件, 即使可以, 这也是不正确的做法.
-
-在使用bash的Mac或Linux中设置环境变量比较容易, 你只需要将以下代码加入.bashrc, .bash_profile, 或.profile其中之一即可. 如果多个项目 使用相同的API, 并且关键信息都不同时, 可以将以下代码加入到virtualenv的bin/activate脚本中:
-
-    export SOME_SECRET_KEY=654-3jgwg-4r3-2t4h-76jk
-    export ANOTHER_SECRET_KEY=y5y-5jk8-75i5h-5g4/.-,o.
-
-如果使用的是windows系统, 则设置稍微复杂一点. 如果使用cmd.exe,你必须使用setx命令一个一个的设置。或者打开 计算器==>属性==>高级系统设置==>环境变量，来添加。
-一个较好的方式是使用virtualenv的 bin/activate.bat
-
-    > setx OME_SECRET_KEY=654-3jgwg-4r3-2t4h-76jk
-
-#### 获取环境变量
-
-考虑到SOME_SECRET_KEY无法被获取到的话, 就会出现KeyError错误, 导致django项目无法启动. 这很好, 但KeyError没有提供更有 用的信息, 导致debug的困难, 因此, 我们在base.py(希望你还记得这是哪个文件)加入以下function, 为我们提供哪个关键信息无法获取的信息:
-
-```python
-# settings/base.py
-import os
-# 通常你不应该从django引入任何代码, 但ImproperlyConfigured是个例外
-from django.core.exceptions import ImproperlyConfigured
-
-def get_env_variable(var_name):
-    try:
-        return os.environ[var_name]
-    except KeyError:
-        error_msg = "Set the %s environment variable" % var_name
-        raise ImproperlyConfigured('error_msg')
-```
-
-#### 无法使用环境变量时
-
-当我们使用apache时, 我们会发现, django无法使用环境变量. 这时, 我们推荐将关键信息储存在JSON格式的文件中, 已达到将关键信息和代码分离的 目的. 首先我们可以创建secrets.json文件:
-
-```json
-{
-    "FILENAME": "secrets.json",
-    "SOME_SECRET_KEY": "654-3jgwg-4r3-2t4h-76jk"
-}
-```
-
-在settings中使用该文件:
-
-```python
-# settings/base.py
-
-import json
-# 通常你不应该从django引入任何代码, 但ImproperlyConfigured是个例外
-from django.core.exceptions import ImproperlyConfigured
-
-# 读取json文件
-with open("secrets.json") as f:
-    secrets = json.loads(f.read())
-
-def get_secret(setting, secrets=secrets):
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {0} environment variable".format(setting)
-        raise ImproperlyConfigured('error_msg')
-
-SOME_SECRET_KEY = get_secret('SOME_SECRET_KEY')
-```
-
-**注意：** 默认的，项目模板采用的是使用 json 获取。但是该文件不应该被 git 追踪。所以你应该自己在项目根目录下建立并自行配置该文件
-在 base.py 文件中也保留使用 django 随机生成的 SECRET_KEY 字段，如果需要，请自行打开注释。
 
 ### 使用不同的部署文件(requirements.txt)
 
@@ -178,7 +103,8 @@ django==1.11.9
 ```
 
 在local.txt中, 储存的是本地开发时用到的依赖库:
-文件继承 base.txt 
+文件继承 base.txt
+ 
 ```
 -r base.txt
 
@@ -191,4 +117,6 @@ ipython
 pip install -r requirements/local.txt
 ```
 
+### 确保 SECRET_KEY 的安全
 
+在生产环境部署过程中，你应该打开 `# SECRET_KEY = get_secret('SECRET_KEY')` 这一行注释，确保该行代码读取项目根目录下的 secrets.json 文件中的 SECRET_KEY 是安全的
