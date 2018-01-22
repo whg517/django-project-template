@@ -1,0 +1,4 @@
+# 继承 base.txt 中的依赖库
+-r base.txt
+
+ipython

@@ -1,0 +1,4 @@
+# 使用清华镜像源，加快安装速度
+-i https://pypi.tuna.tsinghua.edu.cn/simple
+
+django==1.11.9
