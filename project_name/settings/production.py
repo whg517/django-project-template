@@ -12,6 +12,25 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 
 from .base import *
 
+# 通常你不应该从django引入任何代码, 但ImproperlyConfigured是个例外
+from django.core.exceptions import ImproperlyConfigured
+
+# 读取json文件
+with open("secrets.json") as f:
+    secrets = json.loads(f.read())
+
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {0} environment variable".format(setting)
+        raise ImproperlyConfigured('error_msg')
+
+
+# SECRET_KEY = get_secret('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 THIRD_PARTY_APPS = [

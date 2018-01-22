@@ -1,6 +1,57 @@
 # django-project-template
 
 
+## How to install
+
+### 1. Create Project
+
+你应该把下面 `project_name` 换成你自己的项目名称
+
+```bash
+$ django-admin startproject \
+  --template=https://github.com/kiven517/django-project-template/archive/master.zip \
+  --name=Procfile \
+  project_name
+```
+
+### 2. Create your working environment
+
+在当前项目下生成 python 虚拟环境，你也可以选择放在其他地方，或者使用其他环境。
+
+```bash
+cd project_name
+$ virtualenv --no-site-package venv
+$ source venv/bin/activate
+```
+
+如果是 Windows 环境，应该执行 `source venv/Scripts/activate` 
+
+### 3. 安装 package
+```bash
+$ pip install -r requirements/local.txt
+```
+
+### 4. Run project
+
+通过 PyCharm 打开项目目录，点击右上角添加 `Edit Configurations` 添加 Django Server 
+
+![Edit Configurations](http://ono3vb8rf.bkt.clouddn.com/Fqj-RwuAmZQLFjr1e_fWrFvld4Qa.png)
+
+打开 Run/Debug Configurations，点击右上角加号，添加一条 Django server
+
+![Run/Debug Configurations](http://ono3vb8rf.bkt.clouddn.com/Fj2Jdu2iag4gkBDLUFCxOwpQsc5Y.png)
+
+修改 Name 为 Project 名称，然后点击 ok
+
+![Django server](http://ono3vb8rf.bkt.clouddn.com/FiAn2TWl6hIakt4zpmNZnZeHyaq1.png)
+
+点击右上角绿色三角运行。
+
+浏览器访问 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+如果访问，进入 Django 欢迎页，则项目基本配置和运行正常
+
+
 ## Features
 
 Production-ready configuration for Static Files, Database Settings, template dir, etc.
@@ -121,7 +172,6 @@ SOME_SECRET_KEY = get_secret('SOME_SECRET_KEY')
 文件中配置了 pip 使用国内镜像源，加开安装速度
 
 ```
-# 使用清华镜像源，加快安装速度
 -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 django==1.11.9
@@ -130,7 +180,6 @@ django==1.11.9
 在local.txt中, 储存的是本地开发时用到的依赖库:
 文件继承 base.txt 
 ```
-# 继承 base.txt 中的依赖库
 -r base.txt
 
 ipython
@@ -142,67 +191,4 @@ ipython
 pip install -r requirements/local.txt
 ```
 
-## How to install
 
-### 1. Create Project
-
-你应该把下面 `project_name` 换成你自己的项目名称
-
-```bash
-$ django-admin startproject \
-  --template=https://github.com/kiven517/django-project-template/archive/master.zip \
-  --name=Procfile \
-  project_name
-```
-
-### 2. Create your working environment
-
-在当前项目下生成 python 虚拟环境，你也可以选择放在其他地方，或者使用其他环境。
-
-```bash
-cd project_name
-$ virtualenv --no-site-package venv
-$ source venv/bin/activate
-```
-
-如果是 Windows 环境，应该执行 `source venv/Scripts/activate` 
-
-### 3. 安装 package
-```bash
-$ pip install -r requirements/local.txt
-```
-
-### 4. Config your secret file
-
-`SOME_SECRET_KEY` 变量名称和变量值请根据情况自行更改
-
-```bash
-touch secrets.json
-
-cat <<- EOF > secrets.json
-{
-    "FILENAME": "secrets.json",
-    "SOME_SECRET_KEY": "654-3jgwg-4r3-2t4h-76jk"
-}
-EOF
-```
-
-### 5. Run project
-
-通过 PyCharm 打开项目目录，点击右上角添加 `Edit Configurations` 添加 Django Server 
-
-![Edit Configurations](http://ono3vb8rf.bkt.clouddn.com/Fqj-RwuAmZQLFjr1e_fWrFvld4Qa.png)
-
-打开 Run/Debug Configurations，点击右上角加号，添加一条 Django server
-
-![Run/Debug Configurations](http://ono3vb8rf.bkt.clouddn.com/Fj2Jdu2iag4gkBDLUFCxOwpQsc5Y.png)
-
-修改 Name 为 Project 名称，然后点击 ok
-
-![Django server](http://ono3vb8rf.bkt.clouddn.com/FiAn2TWl6hIakt4zpmNZnZeHyaq1.png)
-
-点击右上角绿色三角运行。
-
-浏览器访问 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-
-如果访问，进入 Django 欢迎页，则项目基本配置和运行正常

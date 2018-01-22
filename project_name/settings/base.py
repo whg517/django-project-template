@@ -13,21 +13,6 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 import os
 
 import json
-# 通常你不应该从django引入任何代码, 但ImproperlyConfigured是个例外
-from django.core.exceptions import ImproperlyConfigured
-
-# 读取json文件
-with open("secrets.json") as f:
-    secrets = json.loads(f.read())
-
-
-def get_secret(setting, secrets=secrets):
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {0} environment variable".format(setting)
-        raise ImproperlyConfigured('error_msg')
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -36,8 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/{{ docs_version }}/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '{{ secret_key }}'    这里的 key 是随机生成的，如果打开，请注释掉下面一行
-SECRET_KEY = get_secret('SECRET_KEY')
+SECRET_KEY = '{{ secret_key }}'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
