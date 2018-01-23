@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 
 from .base import *
 
+import json
+
 # 通常你不应该从django引入任何代码, 但ImproperlyConfigured是个例外
 from django.core.exceptions import ImproperlyConfigured
 
@@ -36,7 +38,7 @@ DEBUG = False
 THIRD_PARTY_APPS = [
 ]
 
-LOCAL_APPS = [
+PRODUCTION_APPS = [
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PRODUCTION_APPS
