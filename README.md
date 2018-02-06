@@ -43,7 +43,7 @@ $ pip install -r requirements/local.txt
 
 修改 Name 为 Project 名称，然后点击 ok
 
-![Django server](http://ono3vb8rf.bkt.clouddn.com/FiAn2TWl6hIakt4zpmNZnZeHyaq1.png)
+![Django server](http://ono3vb8rf.bkt.clouddn.com/FqnY6sISOyTUkiEegCrq52jhJAuv.png)
 
 点击右上角绿色三角运行。
 
