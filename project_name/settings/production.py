@@ -10,25 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 """
 
-from .base import *
+import os
 
-import json
-
-# 通常你不应该从django引入任何代码, 但ImproperlyConfigured是个例外
-from django.core.exceptions import ImproperlyConfigured
-
-# 读取json文件
-with open("secrets.json") as f:
-    secrets = json.loads(f.read())
-
-
-def get_secret(setting, secrets=secrets):
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {0} environment variable".format(setting)
-        raise ImproperlyConfigured('error_msg')
-
+from .base import (ALLOWED_HOSTS, AUTH_PASSWORD_VALIDATORS,  # noqa: F401
+                   BASE_DIR, DATABASE_FILE_NAME, DATABASES, DJANGO_APPS,
+                   LANGUAGE_CODE, MEDIA_ROOT, MEDIA_URL, MIDDLEWARE,
+                   ROOT_URLCONF, SECRET_KEY, STATIC_DIR, STATIC_ROOT,
+                   STATIC_URL, STATICFILES_DIRS, TEMPLATES, TEMPLATES_DIR,
+                   TIME_ZONE, USE_I18N, USE_L10N, USE_TZ, WSGI_APPLICATION, )
 
 # SECRET_KEY = get_secret('SECRET_KEY')
 
@@ -42,3 +31,11 @@ PRODUCTION_APPS = [
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PRODUCTION_APPS
+
+# ------------------------------------------------------------------------------------
+# 传入外部配置，如果有 Log 的配置，则应在此之后初始化 Log
+try:
+    with open(os.path.join(BASE_DIR, 'settings.conf'), encoding='utf-8') as f:
+        exec(f.read())
+except Exception:
+    pass

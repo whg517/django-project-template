@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==1.11.16"
+
+[dev-packages]
+coverage = "*"
+"flake8" = "*"
+isort = "*"
+pytest = "*"
+pytest-django = "*"
+pytest-cov = "*"
+
+
+[requires]
+python_version = "3.6"
