@@ -13,38 +13,17 @@ $ django-admin startproject \
   project_name
 ```
 
-### 2. Install Dependency
+### 2. Use Pycharm Open It
+![Pycharm Django](http://ono3vb8rf.bkt.clouddn.com/FtQjfMTD-DQbTpf0dExvK-z6Cd5j.gif)
 
-使用 pipenv 管理虚拟环境，pipenv 已经和 Pycharm ，VS code 继承，可以直接使用。
+### 3. Change `DJANGO_SETTINGS_MODULE`
 
-```bash
-cd project_name
-$ pipenv install --dev
-$ pipenv run python manage.py runserver
+将 `DJANGO_SETTINGS_MODULE` 更改为当前项目的配置。可参照 `manage.py` 文件
+
 ```
-
-即可使用命令行启动项目
-
-### 4. Run project
-
-通过 PyCharm 打开项目目录，点击右上角添加 `Edit Configurations` 添加 Django Server 
-
-![Edit Configurations](http://ono3vb8rf.bkt.clouddn.com/Fqj-RwuAmZQLFjr1e_fWrFvld4Qa.png)
-
-打开 Run/Debug Configurations，点击右上角加号，添加一条 Django server
-
-![Run/Debug Configurations](http://ono3vb8rf.bkt.clouddn.com/Fj2Jdu2iag4gkBDLUFCxOwpQsc5Y.png)
-
-修改 Name 为 Project 名称，然后点击 ok
-
-![Django server](http://ono3vb8rf.bkt.clouddn.com/FqnY6sISOyTUkiEegCrq52jhJAuv.png)
-
-点击右上角绿色三角运行。
-
-浏览器访问 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-
-如果访问，进入 Django 欢迎页，则项目基本配置和运行正常
-
+[tool:pytest]
+DJANGO_SETTINGS_MODULE = demo.settings.development
+```
 
 ## Features
 
