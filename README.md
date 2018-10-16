@@ -81,21 +81,23 @@ pip install -d ipython # 安装开发环境下的依赖。
 
 跟目录 `apps` 包集中放置所有 app 。
 
-### [isort](https://github.com/timothycrosley/isort)
+### Isort
 
-使用 isort 对项目导包进行格式化
+使用 [isort](https://github.com/timothycrosley/isort) 对项目导包进行格式化
 
 ```
 isort
 ```
 
-### [pytest](https://docs.pytest.org/en/latest/contents.html)
+### Pytest
+
+[pytest](https://docs.pytest.org/en/latest/contents.html) 是 Python 中简单易用的测试工具
 
 通过 `pytest-django` 使用 pytest 测试 django 。
 
-### [coverage](https://coverage.readthedocs.io/en/v4.5.x/)
+### Coverage
 
-coverage 是生成测试报告的一个工具。
+[coverage](https://coverage.readthedocs.io/en/v4.5.x/) 是生成测试报告的一个工具。
 
 通过 [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/) 插件可以在测试的同时生成测试报告。
 
@@ -103,9 +105,9 @@ coverage 是生成测试报告的一个工具。
 pytest-cov
 ```
 
-### [tox](https://tox.readthedocs.io/en/latest/index.html)
+### Tox
 
-使用 tox 做自动化处理。
+使用 [tox](https://tox.readthedocs.io/en/latest/index.html) 做自动化处理。
 
 对于 isort 检测会直接输出检测结果，而非帮助修改。
 
