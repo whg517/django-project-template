@@ -8,7 +8,7 @@
 
 ```bash
 $ django-admin startproject \
-  --template=https://github.com/huagang517/django-project-template/archive/master.zip \
+  --template=https://github.com/whg517/django-project-template/archive/master.zip \
   --name=Procfile \
   project_name
 ```
